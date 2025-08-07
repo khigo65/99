@@ -28,8 +28,9 @@ $page_stats = $stats_stmt->fetchAll(PDO::FETCH_ASSOC);
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <meta charset="utf-8">
-    <title>Админ-панель - <?php echo $settings->get('site_title'); ?></title>
+    <title>Админ-панель - <?php echo htmlspecialchars($settings->get('site_title'), ENT_QUOTES, 'UTF-8'); ?></title>
     <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
@@ -75,7 +76,7 @@ $page_stats = $stats_stmt->fetchAll(PDO::FETCH_ASSOC);
                     <tbody>
                         <?php foreach ($page_stats as $stat): ?>
                         <tr>
-                            <td><?php echo htmlspecialchars($stat['page']); ?></td>
+                            <td><?php echo htmlspecialchars($stat['page'], ENT_QUOTES, 'UTF-8'); ?></td>
                             <td><?php echo $stat['total_visits']; ?></td>
                         </tr>
                         <?php endforeach; ?>
@@ -96,7 +97,7 @@ $page_stats = $stats_stmt->fetchAll(PDO::FETCH_ASSOC);
                     <tbody>
                         <?php foreach ($categories as $cat): ?>
                         <tr>
-                            <td><?php echo htmlspecialchars($cat['name']); ?></td>
+                            <td><?php echo htmlspecialchars($cat['name'], ENT_QUOTES, 'UTF-8'); ?></td>
                             <td><?php echo $content->getCount($cat['id']); ?></td>
                             <td>
                                 <a href="content.php?category=<?php echo $cat['id']; ?>">Просмотр</a>

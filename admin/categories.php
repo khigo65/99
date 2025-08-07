@@ -77,6 +77,7 @@ if (isset($_GET['edit'])) {
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <meta charset="utf-8">
     <title>Управление категориями - Админ-панель</title>
     <link rel="stylesheet" href="css/admin.css">
@@ -108,22 +109,22 @@ if (isset($_GET['edit'])) {
                 
                 <div class="form-group">
                     <label>Название:</label>
-                    <input type="text" name="name" value="<?php echo $edit_category ? htmlspecialchars($edit_category['name']) : ''; ?>" required>
+                    <input type="text" name="name" value="<?php echo $edit_category ? htmlspecialchars($edit_category['name'], ENT_QUOTES, 'UTF-8') : ''; ?>" required>
                 </div>
                 
                 <div class="form-group">
                     <label>Slug (URL):</label>
-                    <input type="text" name="slug" value="<?php echo $edit_category ? htmlspecialchars($edit_category['slug']) : ''; ?>" required>
+                    <input type="text" name="slug" value="<?php echo $edit_category ? htmlspecialchars($edit_category['slug'], ENT_QUOTES, 'UTF-8') : ''; ?>" required>
                 </div>
                 
                 <div class="form-group">
                     <label>Иконка (имя файла):</label>
-                    <input type="text" name="icon" value="<?php echo $edit_category ? htmlspecialchars($edit_category['icon']) : ''; ?>">
+                    <input type="text" name="icon" value="<?php echo $edit_category ? htmlspecialchars($edit_category['icon'], ENT_QUOTES, 'UTF-8') : ''; ?>">
                 </div>
                 
                 <div class="form-group">
                     <label>Описание:</label>
-                    <textarea name="description" rows="3"><?php echo $edit_category ? htmlspecialchars($edit_category['description']) : ''; ?></textarea>
+                    <textarea name="description" rows="3"><?php echo $edit_category ? htmlspecialchars($edit_category['description'], ENT_QUOTES, 'UTF-8') : ''; ?></textarea>
                 </div>
                 
                 <div class="form-group">
@@ -156,9 +157,9 @@ if (isset($_GET['edit'])) {
                     <?php foreach ($categories as $cat): ?>
                     <tr>
                         <td><?php echo $cat['id']; ?></td>
-                        <td><?php echo htmlspecialchars($cat['name']); ?></td>
-                        <td><?php echo htmlspecialchars($cat['slug']); ?></td>
-                        <td><?php echo htmlspecialchars($cat['icon']); ?></td>
+                        <td><?php echo htmlspecialchars($cat['name'], ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?php echo htmlspecialchars($cat['slug'], ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?php echo htmlspecialchars($cat['icon'], ENT_QUOTES, 'UTF-8'); ?></td>
                         <td><?php echo $content->getCount($cat['id']); ?></td>
                         <td><?php echo $cat['sort_order']; ?></td>
                         <td>

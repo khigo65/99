@@ -76,6 +76,7 @@ $total_pages = ceil($total_count / $limit);
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <meta charset="utf-8">
     <title>Управление контентом - Админ-панель</title>
     <link rel="stylesheet" href="css/admin.css">
@@ -107,7 +108,7 @@ $total_pages = ceil($total_count / $limit);
                         <?php foreach ($categories as $cat): ?>
                             <option value="<?php echo $cat['id']; ?>" 
                                     <?php echo ($category_filter == $cat['id']) ? 'selected' : ''; ?>>
-                                <?php echo htmlspecialchars($cat['name']); ?>
+                                <?php echo htmlspecialchars($cat['name'], ENT_QUOTES, 'UTF-8'); ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
@@ -126,7 +127,7 @@ $total_pages = ceil($total_count / $limit);
                         <option value="">Выберите категорию</option>
                         <?php foreach ($categories as $cat): ?>
                             <option value="<?php echo $cat['id']; ?>">
-                                <?php echo htmlspecialchars($cat['name']); ?>
+                                <?php echo htmlspecialchars($cat['name'], ENT_QUOTES, 'UTF-8'); ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
@@ -180,8 +181,8 @@ $total_pages = ceil($total_count / $limit);
                         <?php foreach ($items as $item): ?>
                         <tr>
                             <td><?php echo $item['id']; ?></td>
-                            <td><?php echo htmlspecialchars($item['category_name']); ?></td>
-                            <td><?php echo htmlspecialchars($item['title']); ?></td>
+                            <td><?php echo htmlspecialchars($item['category_name'], ENT_QUOTES, 'UTF-8'); ?></td>
+                            <td><?php echo htmlspecialchars($item['title'], ENT_QUOTES, 'UTF-8'); ?></td>
                             <td><?php echo truncateText($item['text'], 50); ?></td>
                             <td><?php echo $item['type']; ?></td>
                             <td><?php echo $item['views']; ?></td>

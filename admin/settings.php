@@ -26,6 +26,7 @@ $all_settings = $settings->getAll();
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <meta charset="utf-8">
     <title>Настройки - Админ-панель</title>
     <link rel="stylesheet" href="css/admin.css">
@@ -51,13 +52,13 @@ $all_settings = $settings->getAll();
             <form method="post">
                 <?php foreach ($all_settings as $setting): ?>
                     <div class="form-group">
-                        <label><?php echo htmlspecialchars($setting['description'] ?: $setting['setting_key']); ?>:</label>
+                        <label><?php echo htmlspecialchars($setting['description'] ?: $setting['setting_key'], ENT_QUOTES, 'UTF-8'); ?>:</label>
                         <?php if (strlen($setting['setting_value']) > 100): ?>
-                            <textarea name="<?php echo $setting['setting_key']; ?>" rows="3"><?php echo htmlspecialchars($setting['setting_value']); ?></textarea>
+                            <textarea name="<?php echo htmlspecialchars($setting['setting_key'], ENT_QUOTES, 'UTF-8'); ?>" rows="3"><?php echo htmlspecialchars($setting['setting_value'], ENT_QUOTES, 'UTF-8'); ?></textarea>
                         <?php else: ?>
-                            <input type="text" name="<?php echo $setting['setting_key']; ?>" value="<?php echo htmlspecialchars($setting['setting_value']); ?>">
+                            <input type="text" name="<?php echo htmlspecialchars($setting['setting_key'], ENT_QUOTES, 'UTF-8'); ?>" value="<?php echo htmlspecialchars($setting['setting_value'], ENT_QUOTES, 'UTF-8'); ?>">
                         <?php endif; ?>
-                        <small>Ключ: <?php echo $setting['setting_key']; ?></small>
+                        <small>Ключ: <?php echo htmlspecialchars($setting['setting_key'], ENT_QUOTES, 'UTF-8'); ?></small>
                     </div>
                 <?php endforeach; ?>
                 

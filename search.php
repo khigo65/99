@@ -24,8 +24,9 @@ if ($query) {
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Поиск: <?php echo htmlspecialchars($query); ?> - <?php echo $settings->get('site_title'); ?></title>
+    <title>Поиск: <?php echo htmlspecialchars($query, ENT_QUOTES, 'UTF-8'); ?> - <?php echo htmlspecialchars($settings->get('site_title'), ENT_QUOTES, 'UTF-8'); ?></title>
     <link rel="shortcut icon" href="style/img/favicon.ico" />
     <link rel="stylesheet" href="style/style.css" type="text/css" />
 </head>
@@ -49,7 +50,7 @@ if ($query) {
 
 <div class="rz">
     <img src='style/img/rzi.png' alt='*'> 
-    Результаты поиска: "<?php echo htmlspecialchars($query); ?>"
+    Результаты поиска: "<?php echo htmlspecialchars($query, ENT_QUOTES, 'UTF-8'); ?>"
 </div>
 
 <?php if (empty($query)): ?>
@@ -76,11 +77,11 @@ if ($query) {
     <?php foreach ($results as $item): ?>
         <div class="menue">
             <?php if ($item['title']): ?>
-                <strong><?php echo htmlspecialchars($item['title']); ?></strong><br>
+                <strong><?php echo htmlspecialchars($item['title'], ENT_QUOTES, 'UTF-8'); ?></strong><br>
             <?php endif; ?>
-            <?php echo nl2br(htmlspecialchars($item['text'])); ?>
+            <?php echo nl2br(htmlspecialchars($item['text'], ENT_QUOTES, 'UTF-8')); ?>
             <br><small style="color: #999;">
-                Категория: <?php echo $item['category_name']; ?> | 
+                Категория: <?php echo htmlspecialchars($item['category_name'], ENT_QUOTES, 'UTF-8'); ?> | 
                 Просмотров: <?php echo $item['views']; ?>
             </small>
         </div>
@@ -90,7 +91,7 @@ if ($query) {
 <div class="frm">
     <form method="get" action="search.php"> 
         Поиск по сайту<br />
-        <input class="radiusleft" name="q" type="text" value="<?php echo htmlspecialchars($query); ?>" maxlength="50"/>
+        <input class="radiusleft" name="q" type="text" value="<?php echo htmlspecialchars($query, ENT_QUOTES, 'UTF-8'); ?>" maxlength="50"/>
         <input type="submit" value="Поиск" class="radiusright" /><br />
         <input <?php echo ($type === 'sms') ? 'checked="checked"' : ''; ?> type="radio" name="by" value="sms" /> Статусы/смс 
         <input <?php echo ($type === 'fact') ? 'checked="checked"' : ''; ?> type="radio" name="by" value="fact" /> Факты

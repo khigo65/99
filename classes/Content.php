@@ -5,6 +5,8 @@ class Content {
     
     public function __construct($db) {
         $this->conn = $db;
+        // Устанавливаем кодировку для всех операций
+        $this->conn->exec("SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci");
     }
     
     public function getByCategory($category_id, $limit = 20, $offset = 0) {
@@ -38,11 +40,11 @@ class Content {
         
         $stmt = $this->conn->prepare($sql);
         $search_term = "%{$query}%";
-        $stmt->bindParam(1, $search_term);
-        $stmt->bindParam(2, $search_term);
+        $stmt->bindParam(1, $search_term, PDO::PARAM_STR);
+        $stmt->bindParam(2, $search_term, PDO::PARAM_STR);
         
         if ($type !== 'all') {
-            $stmt->bindParam(3, $type);
+            $stmt->bindParam(3, $type, PDO::PARAM_STR);
             $stmt->bindParam(4, $limit, PDO::PARAM_INT);
         } else {
             $stmt->bindParam(3, $limit, PDO::PARAM_INT);
@@ -59,7 +61,7 @@ class Content {
                   WHERE c.id = ?";
         
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1, $id);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();
         
         return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -68,14 +70,16 @@ class Content {
     public function incrementViews($id) {
         $query = "UPDATE " . $this->table_name . " SET views = views + 1 WHERE id = ?";
         $stmt = $this->conn->prepare($query);
-        return $stmt->execute([$id]);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        return $stmt->execute();
     }
     
     public function getCount($category_id = null) {
         if ($category_id) {
             $query = "SELECT COUNT(*) as count FROM " . $this->table_name . " WHERE category_id = ? AND is_active = 1";
             $stmt = $this->conn->prepare($query);
-            $stmt->execute([$category_id]);
+            $stmt->bindParam(1, $category_id, PDO::PARAM_INT);
+            $stmt->execute();
         } else {
             $query = "SELECT COUNT(*) as count FROM " . $this->table_name . " WHERE is_active = 1";
             $stmt = $this->conn->prepare($query);
@@ -92,12 +96,11 @@ class Content {
                   VALUES (?, ?, ?, ?)";
         
         $stmt = $this->conn->prepare($query);
-        return $stmt->execute([
-            $data['category_id'],
-            $data['title'],
-            $data['text'],
-            $data['type']
-        ]);
+        $stmt->bindParam(1, $data['category_id'], PDO::PARAM_INT);
+        $stmt->bindParam(2, $data['title'], PDO::PARAM_STR);
+        $stmt->bindParam(3, $data['text'], PDO::PARAM_STR);
+        $stmt->bindParam(4, $data['type'], PDO::PARAM_STR);
+        return $stmt->execute();
     }
     
     public function update($id, $data) {
@@ -106,19 +109,19 @@ class Content {
                   WHERE id = ?";
         
         $stmt = $this->conn->prepare($query);
-        return $stmt->execute([
-            $data['category_id'],
-            $data['title'],
-            $data['text'],
-            $data['type'],
-            $id
-        ]);
+        $stmt->bindParam(1, $data['category_id'], PDO::PARAM_INT);
+        $stmt->bindParam(2, $data['title'], PDO::PARAM_STR);
+        $stmt->bindParam(3, $data['text'], PDO::PARAM_STR);
+        $stmt->bindParam(4, $data['type'], PDO::PARAM_STR);
+        $stmt->bindParam(5, $id, PDO::PARAM_INT);
+        return $stmt->execute();
     }
     
     public function delete($id) {
         $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
         $stmt = $this->conn->prepare($query);
-        return $stmt->execute([$id]);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 }
 ?>

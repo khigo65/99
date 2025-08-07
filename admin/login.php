@@ -19,7 +19,8 @@ if ($_POST) {
         
         $query = "SELECT id, username, password FROM admins WHERE username = ?";
         $stmt = $db->prepare($query);
-        $stmt->execute([$username]);
+        $stmt->bindParam(1, $username, PDO::PARAM_STR);
+        $stmt->execute();
         $admin = $stmt->fetch(PDO::FETCH_ASSOC);
         
         if ($admin && password_verify($password, $admin['password'])) {
@@ -29,7 +30,8 @@ if ($_POST) {
             // Обновляем время последнего входа
             $update_query = "UPDATE admins SET last_login = NOW() WHERE id = ?";
             $update_stmt = $db->prepare($update_query);
-            $update_stmt->execute([$admin['id']]);
+            $update_stmt->bindParam(1, $admin['id'], PDO::PARAM_INT);
+            $update_stmt->execute();
             
             redirect('index.php');
         } else {
@@ -43,6 +45,7 @@ if ($_POST) {
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <meta charset="utf-8">
     <title>Вход в админ-панель</title>
     <link rel="stylesheet" href="css/admin.css">

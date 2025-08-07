@@ -21,8 +21,9 @@ updateStatistics('index');
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title><?php echo $site_title; ?></title>
+    <title><?php echo htmlspecialchars($site_title, ENT_QUOTES, 'UTF-8'); ?></title>
     <link rel="shortcut icon" href="style/img/favicon.ico" />
     <link rel="stylesheet" href="style/style.css" type="text/css" />
 </head>
@@ -64,11 +65,11 @@ updateStatistics('index');
 <?php foreach ($categories as $cat): ?>
     <?php $count = $content->getCount($cat['id']); ?>
     <div class='menue'>
-        <a href='category.php?slug=<?php echo $cat['slug']; ?>'>
-            <img src='style/img/<?php echo $cat['icon']; ?>' alt='*'> <?php echo $cat['name']; ?>
+        <a href='category.php?slug=<?php echo urlencode($cat['slug']); ?>'>
+            <img src='style/img/<?php echo htmlspecialchars($cat['icon'], ENT_QUOTES, 'UTF-8'); ?>' alt='*'> <?php echo htmlspecialchars($cat['name'], ENT_QUOTES, 'UTF-8'); ?>
         </a>
         <span class="count"><?php echo $count; ?></span><br><br>
-        <?php echo $cat['description']; ?>
+        <?php echo htmlspecialchars($cat['description'], ENT_QUOTES, 'UTF-8'); ?>
     </div>
 <?php endforeach; ?>
 
@@ -85,7 +86,7 @@ updateStatistics('index');
 <div class="frm">
     <form method="get" action="search.php"> 
         Поиск по сайту<br />
-        <input class="radiusleft" name="q" type="text" value="<?php echo isset($_GET['q']) ? htmlspecialchars($_GET['q']) : ''; ?>" maxlength="50"/>
+        <input class="radiusleft" name="q" type="text" value="<?php echo isset($_GET['q']) ? htmlspecialchars($_GET['q'], ENT_QUOTES, 'UTF-8') : ''; ?>" maxlength="50"/>
         <input type="submit" value="Поиск" class="radiusright" /><br />
         <input checked="checked" type="radio" name="by" value="sms" /> Статусы/смс 
         <input type="radio" name="by" value="fact" /> Факты

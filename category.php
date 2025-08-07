@@ -32,8 +32,9 @@ updateStatistics('category_' . $slug);
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title><?php echo $cat_info['name']; ?> - <?php echo $settings->get('site_title'); ?></title>
+    <title><?php echo htmlspecialchars($cat_info['name'], ENT_QUOTES, 'UTF-8'); ?> - <?php echo htmlspecialchars($settings->get('site_title'), ENT_QUOTES, 'UTF-8'); ?></title>
     <link rel="shortcut icon" href="style/img/favicon.ico" />
     <link rel="stylesheet" href="style/style.css" type="text/css" />
 </head>
@@ -56,8 +57,8 @@ updateStatistics('category_' . $slug);
 </div>
 
 <div class="rz">
-    <img src='style/img/<?php echo $cat_info['icon']; ?>' alt='*'> 
-    <?php echo $cat_info['name']; ?> (<?php echo $total_count; ?>)
+    <img src='style/img/<?php echo htmlspecialchars($cat_info['icon'], ENT_QUOTES, 'UTF-8'); ?>' alt='*'> 
+    <?php echo htmlspecialchars($cat_info['name'], ENT_QUOTES, 'UTF-8'); ?> (<?php echo $total_count; ?>)
 </div>
 
 <?php if (empty($items)): ?>
@@ -71,9 +72,9 @@ updateStatistics('category_' . $slug);
     <?php foreach ($items as $item): ?>
         <div class="menue">
             <?php if ($item['title']): ?>
-                <strong><?php echo htmlspecialchars($item['title']); ?></strong><br>
+                <strong><?php echo htmlspecialchars($item['title'], ENT_QUOTES, 'UTF-8'); ?></strong><br>
             <?php endif; ?>
-            <?php echo nl2br(htmlspecialchars($item['text'])); ?>
+            <?php echo nl2br(htmlspecialchars($item['text'], ENT_QUOTES, 'UTF-8')); ?>
             <br><small style="color: #999;">
                 Просмотров: <?php echo $item['views']; ?> | 
                 <?php echo formatDate($item['created_at']); ?>

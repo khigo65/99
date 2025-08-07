@@ -2,7 +2,7 @@
 function sanitize_input($data) {
     $data = trim($data);
     $data = stripslashes($data);
-    $data = htmlspecialchars($data);
+    $data = htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
     return $data;
 }
 
@@ -39,7 +39,9 @@ function updateStatistics($page) {
     $query = "INSERT INTO statistics (page, visits, date) VALUES (?, 1, ?) 
               ON DUPLICATE KEY UPDATE visits = visits + 1";
     $stmt = $db->prepare($query);
-    $stmt->execute([$page, $today]);
+    $stmt->bindParam(1, $page, PDO::PARAM_STR);
+    $stmt->bindParam(2, $today, PDO::PARAM_STR);
+    $stmt->execute();
 }
 
 function getOnlineUsers() {

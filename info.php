@@ -22,8 +22,9 @@ updateStatistics('info_' . $id);
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title><?php echo $page_info['title']; ?> - <?php echo $settings->get('site_title'); ?></title>
+    <title><?php echo htmlspecialchars($page_info['title'], ENT_QUOTES, 'UTF-8'); ?> - <?php echo htmlspecialchars($settings->get('site_title'), ENT_QUOTES, 'UTF-8'); ?></title>
     <link rel="shortcut icon" href="style/img/favicon.ico" />
     <link rel="stylesheet" href="style/style.css" type="text/css" />
 </head>
@@ -46,12 +47,12 @@ updateStatistics('info_' . $id);
 </div>
 
 <div class="rz">
-    <img src='style/img/rzi.png' alt='*'> <?php echo $page_info['title']; ?>
+    <img src='style/img/rzi.png' alt='*'> <?php echo htmlspecialchars($page_info['title'], ENT_QUOTES, 'UTF-8'); ?>
 </div>
 
 <div class="news">
     <div class="inf">
-        <?php echo nl2br($page_info['content']); ?>
+        <?php echo nl2br(htmlspecialchars($page_info['content'], ENT_QUOTES, 'UTF-8')); ?>
         <br><a href="index.php"><small>На главную</small></a>
     </div>
 </div>
